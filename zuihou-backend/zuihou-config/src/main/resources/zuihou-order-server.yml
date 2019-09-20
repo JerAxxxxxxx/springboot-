@@ -1,0 +1,11 @@
+zuihou:
+  swagger:
+    docket:
+      order:
+        title: 演示服务
+        base-package: com.github.zuihou.order.controller
+
+server:
+  servlet:
+    context-path:
+  port: 8769

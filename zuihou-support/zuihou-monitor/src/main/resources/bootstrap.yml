@@ -1,0 +1,36 @@
+#zuihou:
+#  ip:
+#    rabbitmq: ${RABBIT_IP:127.0.0.1}
+#    local: ${spring.cloud.client.ip-address:127.0.0.1}
+#    nacos: ${NACOS_IP:127.0.0.1}
+#  port:
+#    nacos: ${NACOS_PORT:8848}
+
+zuihou:
+  local-ip: ${LOCAL_IP:${spring.cloud.client.ip-address}}
+  nacos:
+    ip: ${NACOS_IP:@pom.nacos.ip@}
+    port: ${NACOS_PORT:@pom.nacos.port@}
+    namespace: ${NACOS_ID:@pom.nacos.namespace@}
+
+
+logging:
+  file: ${logging.path}/${spring.application.name}/root.log
+  path: /data/projects/logs
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: @project.artifactId@
+  profiles:
+    active: @pom.profile.name@
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${zuihou.nacos.ip}:${zuihou.nacos.port}
+        namespace: ${zuihou.nacos.namespace}
+        metadata:
+          user.name: ${spring.security.user.name}
+          user.password: ${spring.security.user.password}
+          management.context-path: ${server.servlet.context-path:}${spring.mvc.servlet.path:}${management.endpoints.web.base-path:}
